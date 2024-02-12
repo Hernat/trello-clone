@@ -1,0 +1,30 @@
+{
+	"cSpell.words": [
+		"clsx",
+		"lucide",
+		"nextjs",
+		"Taskify",
+		"usehooks",
+		"zustand"
+	],
+	"workbench.colorCustomizations": {
+		"activityBar.activeBackground": "#319afe",
+		"activityBar.background": "#319afe",
+		"activityBar.foreground": "#15202b",
+		"activityBar.inactiveForeground": "#15202b99",
+		"activityBarBadge.background": "#be0162",
+		"activityBarBadge.foreground": "#e7e7e7",
+		"commandCenter.border": "#e7e7e799",
+		"sash.hoverBorder": "#319afe",
+		"statusBar.background": "#0181fb",
+		"statusBar.foreground": "#e7e7e7",
+		"statusBarItem.hoverBackground": "#319afe",
+		"statusBarItem.remoteBackground": "#0181fb",
+		"statusBarItem.remoteForeground": "#e7e7e7",
+		"titleBar.activeBackground": "#0181fb",
+		"titleBar.activeForeground": "#e7e7e7",
+		"titleBar.inactiveBackground": "#0181fb99",
+		"titleBar.inactiveForeground": "#e7e7e799"
+	},
+	"peacock.color": "#0181fb"
+}
