@@ -1,10 +1,9 @@
-import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
-
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
+import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
+import { CircleFadingPlus, Plus } from "lucide-react";
 import { MobileSidebar } from "./mobile-sidebar";
-
-import { Plus } from "lucide-react";
+import { FormPopover } from "@/components/form/form-popover";
 
 export const Navbar = () => {
 	return (
@@ -18,20 +17,28 @@ export const Navbar = () => {
 					<Logo />
 				</div>
 
-				<Button
-					variant="primary"
-					size="sm"
-					className="rounded-sm hidden md:block h-auto py-1.5 px-2"
-				>
-					Create
-				</Button>
-				<Button
-					variant="primary"
-					size="sm"
-					className="rounded-sm block md:hidden"
-				>
-					<Plus className="h-4 w-4" />
-				</Button>
+				<FormPopover align="start" side="bottom" sideOffset={18}>
+					<Button
+						variant="primary"
+						size="sm"
+						className="rounded-sm hidden md:block h-auto py-1.5  px-4  "
+					>
+						<span className="flex items-center   gap-x-2">
+							<CircleFadingPlus className="h-4 w-4" />
+							Create
+						</span>
+					</Button>
+				</FormPopover>
+
+				<FormPopover>
+					<Button
+						variant="primary"
+						size="sm"
+						className="rounded-sm block md:hidden"
+					>
+						<Plus className="h-4 w-4" />
+					</Button>
+				</FormPopover>
 			</div>
 
 			<div className="ml-auto flex items-center gap-x-2">
