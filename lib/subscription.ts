@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { auth } from "@clerk/nextjs";
 import { db } from "./db";
 
