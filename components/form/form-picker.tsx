@@ -1,7 +1,7 @@
 "use client";
 
 import { defaultImages } from "@/constants/images";
-import { unsplash } from "@/lib/unsplash";
+// import { unsplash } from "@/lib/unsplash";
 import { cn } from "@/lib/utils";
 import { Check, Loader2 } from "lucide-react";
 import Image from "next/image";
@@ -15,11 +15,25 @@ interface FormPickerProps {
 	errors?: Record<string, string[] | undefined>;
 }
 
+interface Image {
+	id: string;
+	urls: {
+		thumb: string;
+		full: string;
+	};
+	links: {
+		html: string;
+	};
+	user: {
+		name: string;
+	};
+	// other properties
+}
+
 export const FormPicker = ({ id, errors }: FormPickerProps) => {
 	const { pending } = useFormStatus();
 
-	const [images, setImages] =
-		useState<Array<Record<string, unknown>>>(defaultImages);
+	const [images, setImages] = useState<Array<Image>>(defaultImages);
 	const [isLoading, setIsLoading] = useState(true);
 	const [selectedImageId, setSelectedImageId] = useState<null | unknown>(
 		null
@@ -29,19 +43,19 @@ export const FormPicker = ({ id, errors }: FormPickerProps) => {
 		const fetchImages = async () => {
 			try {
 				throw new Error("Not implemented");
-				const result = await unsplash.photos.getRandom({
-					collectionIds: ["317099"],
-					count: 9,
-				});
+				// const result = await unsplash.photos.getRandom({
+				// 	collectionIds: ["317099"],
+				// 	count: 9,
+				// });
 
-				if (result && result.response) {
-					const newImages = result.response as unknown as Array<
-						Record<string, unknown>
-					>;
-					setImages(newImages);
-				} else {
-					console.log("Failed to fetch images");
-				}
+				// if (result && result.response) {
+				// 	const newImages = result.response as unknown as Array<
+				// 		Record<string, unknown>
+				// 	>;
+				// 	setImages(newImages);
+				// } else {
+				// 	console.log("Failed to fetch images");
+				// }
 			} catch (error) {
 				setImages(images);
 			} finally {

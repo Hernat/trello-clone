@@ -16,4 +16,6 @@ export const OrgControl = () => {
 			organization: params.organizationId as string,
 		});
 	}, [params.organizationId, setActive]);
+
+	return null;
 };

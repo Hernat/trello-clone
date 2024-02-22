@@ -89,7 +89,7 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
 					<NavItem
 						key={organization.id}
 						isActive={activeOrganization?.id === organization.id}
-						isExpanded={expanded[organization.id]}
+						isExpanded={!!expanded[organization.id]}
 						organization={organization as Organization}
 						onExpand={onExpand}
 					/>

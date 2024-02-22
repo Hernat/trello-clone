@@ -65,7 +65,8 @@ export const ListContainer = ({ boardId, data }: ListContainerProps) => {
 		setOrderedData(data);
 	}, [data]);
 
-	const onDragEnd = (result: DragResult) => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const onDragEnd = (result: any) => {
 		const { destination, source, type } = result;
 
 		if (!destination) {
