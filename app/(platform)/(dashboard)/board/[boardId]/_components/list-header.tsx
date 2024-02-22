@@ -8,6 +8,8 @@ import { ElementRef, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useEventListener } from "usehooks-ts";
 import { ListOptions } from "./list-options";
+import { Edit2Icon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface ListHeaderProps {
 	data: List;
@@ -68,7 +70,14 @@ export const ListHeader = ({ data, onAddCard }: ListHeaderProps) => {
 	};
 
 	return (
-		<div className="pt-2 px-2 text-sm font-semibold flex justify-between items-start gap-x-2">
+		<div
+			className={cn(
+				"py-2 px-2 text-white flex justify-between items-start gap-x-2 bg-slate-600",
+				data.order === 1 && "bg-sky-600",
+				data.order === 2 && "bg-yellow-500",
+				data.order === 3 && "bg-emerald-600"
+			)}
+		>
 			{isEditing ? (
 				<form
 					action={handleSubmit}
@@ -95,16 +104,17 @@ export const ListHeader = ({ data, onAddCard }: ListHeaderProps) => {
 						id="title"
 						placeholder=" Enter list title..."
 						defaultValue={title}
-						className="text-sm px-[7px] py-1 h-7 font-medium border-transparent hover:border-input focus:border-input transition truncate bg-transparent focus:bg-white "
+						className="text-base px-[7px] py-1 h-6 text-black font-medium border-transparent hover:border-input/50 focus:border-input transition truncate bg-transparent focus:bg-white "
 					/>
 					<button type="submit" hidden />
 				</form>
 			) : (
 				<div
 					onClick={enableEditing}
-					className="w-full text-sm px-2.5 py-1 h-7 font-medium border-transparent cursor-pointer"
+					className="w-full text-base px-2.5 py-1 h-7 font-medium border-transparent cursor-pointer flex items-center hover:bg-transparent/10 rounded-sm"
 				>
 					{title}
+					<Edit2Icon className="inline w-2 h-2 ml-2" />
 				</div>
 			)}
 

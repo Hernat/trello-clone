@@ -68,7 +68,10 @@ export const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
-				<Button className="w-auto h-auto p-2" variant="ghost">
+				<Button
+					className="w-auto h-auto p-2 hover:bg-transparent/10 hover:text-white"
+					variant="ghost"
+				>
 					<MoreHorizontal className="h-4 w-4" />
 				</Button>
 			</PopoverTrigger>

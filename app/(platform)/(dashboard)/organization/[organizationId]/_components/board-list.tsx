@@ -1,11 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-mixed-spaces-and-tabs */
 import { FormPopover } from "@/components/form/form-popover";
 import { Hint } from "@/components/hint";
-import { HelpCircle, PlusCircleIcon, User2 } from "lucide-react";
-import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
-import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
+import { MAX_FREE_BOARDS } from "@/constants/boards";
+import { db } from "@/lib/db";
+import { getAvailableCount } from "@/lib/org-limit";
+import { checkSubscription } from "@/lib/subscription";
+import { auth } from "@clerk/nextjs";
+import { HelpCircle, PlusCircleIcon, User2 } from "lucide-react";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export const BoardList = async () => {
 	const { orgId } = auth();
@@ -23,6 +28,9 @@ export const BoardList = async () => {
 				createdAt: "desc",
 			},
 		});
+
+		const availableCount = await getAvailableCount();
+		const isPro = await checkSubscription();
 
 		return (
 			<div className="space-y-4">
@@ -58,7 +66,13 @@ export const BoardList = async () => {
 								<PlusCircleIcon className="h-4 w-4" /> Create
 								new board
 							</p>
-							<span className="text-xs">5 remaining</span>
+							<span className="text-xs">
+								{isPro
+									? "Unlimited"
+									: `${
+											MAX_FREE_BOARDS - availableCount
+									  }/5 remaining`}
+							</span>
 							<Hint
 								sideOffset={40}
 								description={`Free Workspaces ca gave up to 5 open boards. For unlimited workspaces, please upgrade to Pro.`}
@@ -70,7 +84,7 @@ export const BoardList = async () => {
 				</div>
 			</div>
 		);
-	} catch (error) {
+	} catch (error: any) {
 		return (
 			<div className="h-full ">
 				<h1 className="text-muted text-neutral-600">

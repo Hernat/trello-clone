@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { notFound, redirect } from "next/navigation";
 import { BoardNavbar } from "./_components/board-navbar";
+import Link from "next/link";
 
 export async function generateMetadata({
 	params,
@@ -60,6 +61,16 @@ const BoardIdLayout = async ({
 			<BoardNavbar data={board} />
 			<div className="absolute inset-0 bg-black bg-opacity-50" />
 			<main className="relative pt-28 h-full">{children}</main>
+
+			<Link
+				href={board?.imageLinkHTML}
+				className="fixed bottom-0 right-0 p-4 text-slate-200"
+				target="_blank"
+			>
+				<p className="text-sm font-normal hover:underline">
+					{board?.imageUserName} on Pixels
+				</p>
+			</Link>
 		</div>
 	);
 };

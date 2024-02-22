@@ -28,6 +28,7 @@ export const FormPicker = ({ id, errors }: FormPickerProps) => {
 	useEffect(() => {
 		const fetchImages = async () => {
 			try {
+				throw new Error("Not implemented");
 				const result = await unsplash.photos.getRandom({
 					collectionIds: ["317099"],
 					count: 9,
@@ -102,7 +103,7 @@ export const FormPicker = ({ id, errors }: FormPickerProps) => {
 							target="_blank"
 							className="opacity-0 group-hover:opacity-100 absolute bottom-0 w-full text-[10px] truncate text-white hover:underline bg-black/50 "
 						>
-							{image.user.name} on Unsplash
+							{image.user.name} on Pixels
 						</Link>
 					</div>
 				))}

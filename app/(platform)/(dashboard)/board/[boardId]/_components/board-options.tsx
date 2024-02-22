@@ -1,17 +1,18 @@
 "use client";
 
-import { Delete, MoreHorizontal, X } from "lucide-react";
+import { MoreHorizontal, TrashIcon, X } from "lucide-react";
 
+import { deleteBoard } from "@/actions/delete-board";
+import { Button } from "@/components/ui/button";
 import {
 	Popover,
+	PopoverClose,
 	PopoverContent,
 	PopoverTrigger,
-	PopoverClose,
 } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
 import { useAction } from "@/hooks/use-action";
-import { deleteBoard } from "@/actions/delete-board";
 import { toast } from "sonner";
+import { Separator } from "@/components/ui/separator";
 
 interface BoardOptionsProps {
 	id: string;
@@ -42,9 +43,10 @@ export const BoardOptions = ({ id }: BoardOptionsProps) => {
 				side="bottom"
 				align="start"
 			>
-				<div className="text-sm font-medium text-center text-neutral-600 pb-4">
+				<div className="text-sm font-extralight text-center text-neutral-600 pb-4">
 					Board actions
 				</div>
+				<Separator />
 				<PopoverClose asChild>
 					<Button
 						className="h-auto w-auto p-2 absolute top-2 right-2 text-neutral-600"
@@ -53,16 +55,15 @@ export const BoardOptions = ({ id }: BoardOptionsProps) => {
 						<X className="h-4 w-4" />
 					</Button>
 				</PopoverClose>
-				<div className="flex justify-center">
-					<Button
-						variant="ghost"
-						onClick={onDelete}
-						disabled={isLoading}
-						className="rounded-sm w-auto h-auto p-2 px-5 justify-end font-normal text-sm bg-rose-200 hover:bg-rose-300 cent"
-					>
-						Delete this board <Delete size={16} className="mx-4" />
-					</Button>
-				</div>
+
+				<Button
+					variant="ghost"
+					onClick={onDelete}
+					disabled={isLoading}
+					className="rounded-sm w-full h-auto  justify-start font-light text-sm"
+				>
+					<TrashIcon className="h-4 w-4 mr-2" /> Delete this board
+				</Button>
 			</PopoverContent>
 		</Popover>
 	);

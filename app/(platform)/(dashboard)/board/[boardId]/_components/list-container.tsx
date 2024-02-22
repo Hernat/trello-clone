@@ -9,6 +9,7 @@ import { ListForm } from "./list-form";
 import { ListItem } from "./list-item";
 import { updateListOrder } from "@/actions/update-list-order";
 import { cn } from "@/lib/utils";
+import { updateCardOrder } from "@/actions/update-card-order";
 
 interface ListContainerProps {
 	boardId: string;
@@ -33,17 +34,32 @@ function reorder<T>(list: T[], startIndex: number, endIndex: number) {
 export const ListContainer = ({ boardId, data }: ListContainerProps) => {
 	const [orderedData, setOrderedData] = useState(data);
 
-	const { execute: executeUpdateListOrder, isLoading } = useAction(
-		updateListOrder,
-		{
-			onSuccess: () => {
-				toast.success("List order updated");
-			},
-			onError: (error) => {
-				toast.error(error);
-			},
-		}
-	);
+	const {
+		execute: executeUpdateListOrder,
+		isLoading: isLoadingUpdateListOrder,
+	} = useAction(updateListOrder, {
+		onSuccess: () => {
+			toast.success("List order updated");
+		},
+		onError: (error) => {
+			toast.error(error);
+		},
+	});
+
+	const {
+		execute: executeUpdateCardOrder,
+		isLoading: isLoadingUpdateCardOrder,
+	} = useAction(updateCardOrder, {
+		onSuccess: (data) => {
+			const title = orderedData.find(
+				(list) => list.id === data[0].listId
+			)?.title;
+			toast.success(`Card moved to "${title}" list`);
+		},
+		onError: (error) => {
+			toast.error(error);
+		},
+	});
 
 	useEffect(() => {
 		setOrderedData(data);
@@ -124,6 +140,11 @@ export const ListContainer = ({ boardId, data }: ListContainerProps) => {
 
 				setOrderedData(newOrderedData);
 
+				executeUpdateCardOrder({
+					boardId: boardId,
+					items: reorderedCards,
+				});
+
 				//Move card from one list to another list
 			} else {
 				//Remove card from source list
@@ -145,8 +166,10 @@ export const ListContainer = ({ boardId, data }: ListContainerProps) => {
 				});
 
 				setOrderedData(newOrderedData);
-
-				//TODO: Trigger server action
+				executeUpdateCardOrder({
+					boardId: boardId,
+					items: destList.cards,
+				});
 			}
 		}
 	};
@@ -160,7 +183,9 @@ export const ListContainer = ({ boardId, data }: ListContainerProps) => {
 						ref={provided.innerRef}
 						className={cn(
 							"flex gap-x-3 h-full",
-							isLoading && "animate-pulse "
+							(isLoadingUpdateListOrder ||
+								isLoadingUpdateCardOrder) &&
+								"animate-pulse "
 						)}
 					>
 						{orderedData.map((list, index) => (
